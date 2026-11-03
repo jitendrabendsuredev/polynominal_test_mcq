@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Polynomial Features, GridSearchCV & Hyperparameters – 25 MCQs</title>
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--tx:#1b1f2a;--mu:#5b6275;--bd:#d9dde8;--ac:#4f46e5;--ok:#16a34a;--okb:#dcfce7;--no:#dc2626;--nob:#fee2e2;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12141c;--card:#1c1f2b;--tx:#eceef5;--mu:#9aa1b5;--bd:#31364a;--ac:#8b85ff;--ok:#4ade80;--okb:#143323;--no:#f87171;--nob:#3b1a1a}}
+:root[data-theme="dark"]{--bg:#12141c;--card:#1c1f2b;--tx:#eceef5;--mu:#9aa1b5;--bd:#31364a;--ac:#8b85ff;--ok:#4ade80;--okb:#143323;--no:#f87171;--nob:#3b1a1a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+main{max-width:760px;margin:0 auto;padding:16px}
+h1{font-size:1.3rem;margin:8px 0 4px}p.s{color:var(--mu);margin:0 0 12px}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);padding:8px 0;display:flex;justify-content:space-between;font-weight:600;z-index:5;border-bottom:1px solid var(--bd)}
+.q{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:14px;margin:14px 0}
+.q h3{font-size:1rem;margin:0 0 10px}
+.o{display:block;width:100%;text-align:left;background:transparent;color:var(--tx);border:1px solid var(--bd);border-radius:8px;padding:10px;margin:6px 0;font:inherit;cursor:pointer}
+.o:hover:not(:disabled){border-color:var(--ac)}
+.o.ok{background:var(--okb);border-color:var(--ok)}.o.no{background:var(--nob);border-color:var(--no)}
+.e{display:none;margin-top:8px;color:var(--mu);font-size:.92rem}
+.btn{background:var(--ac);color:#fff;border:0;border-radius:8px;padding:10px 16px;font:inherit;cursor:pointer}
+pre,code{font-family:ui-monospace,Menlo,monospace}code{background:var(--bd);padding:0 4px;border-radius:4px}
+</style></head><body><main>
+<h1>Polynomial Features, GridSearchCV & Hyperparameter Tuning</h1>
+<p class="s">25 MCQs – click an option to see the answer and explanation.</p>
+<div class="bar"><span id="p">Answered: 0/25</span><span id="sc">Score: 0</span></div>
+<div id="qs"></div>
+<div style="text-align:center;margin:20px 0"><button class="btn" onclick="location.reload()">Restart quiz</button></div>
+</main>
+<script>
+const D=[
+["PolynomialFeatures(degree=2) on a single feature x (include_bias=True) creates which columns?",["x, x²","1, x, x²","x², x³","x, 2x"],1,"Bias (1), x and x² are generated."],
+["Polynomial Regression is still a linear model because it is linear in the…",["features","coefficients (parameters)","degree","target only"],1,"The curve is non-linear in x, but the equation is linear in the coefficients."],
+["For features a and b with degree=2 and include_bias=False, the output is…",["a, b, a², b²","a, b, a², ab, b²","1, a, b, ab","a², b², ab"],1,"The interaction term a·b is also created."],
+["Which sklearn class creates polynomial features?",["sklearn.linear_model.Poly","sklearn.preprocessing.PolynomialFeatures","sklearn.model_selection.Poly","sklearn.metrics.PolynomialFeatures"],1,"It lives in sklearn.preprocessing."],
+["A very high polynomial degree usually causes…",["Underfitting","Low variance","Overfitting","Faster training only"],2,"The model memorises noise: high train score, low test score."],
+["Using degree=1 on clearly curved data usually causes…",["Overfitting","Underfitting","Data leakage","Perfect fit"],1,"A straight line is too simple to capture the curve."],
+["Which one is a model PARAMETER?",["Polynomial degree","cv (number of folds)","Coefficient / slope learned from data","param_grid"],2,"Parameters (coef_, intercept_) are learned during fit()."],
+["Which one is a HYPERPARAMETER?",["Intercept","Polynomial degree","Learned slope","Residual"],1,"Degree is chosen by us before training."],
+["Model parameters are determined…",["Before training by the user","During training from data","Only after deployment","By GridSearchCV only"],1,"fit() learns them from training data."],
+["Hyperparameters are set…",["Automatically by the model while learning","Before training, by the user or a search","After prediction","By the test set"],1,"They control the learning process and are not learned by fit() directly."],
+["What does GridSearchCV do?",["Tries random values only","Tries every combination in param_grid using cross-validation","Splits data only","Scales features"],1,"Exhaustive search + cross-validation."],
+["param_grid={'degree':[1,2,3,4]} with cv=5. Total model fits?",["4","5","9","20"],3,"4 combinations × 5 folds = 20 fits (plus 1 final refit)."],
+["param_grid={'a':[1,2,3],'b':[10,20]}, cv=3. Total fits?",["6","9","18","5"],2,"3×2 = 6 combinations × 3 folds = 18."],
+["Which attribute gives the best hyperparameters after fit()?",["best_params_","best_degree","params_best","top_params"],0,"grid.best_params_ returns a dict like {'poly__degree': 3}."],
+["What does best_score_ represent?",["Test score","Mean cross-validation score of the best combination","Training score of the last fold","Lowest score"],1,"It is the average CV score of the best parameter set."],
+["What does best_estimator_ return?",["Only the best degree","The model refitted on the whole training data with the best params","The test data","A list of scores"],1,"With refit=True (default) the best model is retrained on all training data."],
+["In Pipeline([('poly',PolynomialFeatures()),('lr',LinearRegression())]), the key to tune degree is…",["degree","poly.degree","poly__degree","lr__degree"],2,"Format is stepname__parametername (double underscore)."],
+["cv=5 means…",["5 different models","Data split into 5 folds; each fold is used once as validation","5 test sets","Only 5 rows used"],1,"Train on 4 folds, validate on 1, repeated 5 times."],
+["Why is scoring='neg_mean_squared_error' negative?",["Errors can be negative","sklearn always maximises scores, so error is negated","It is a bug","To reduce the error"],1,"Higher (closer to 0) is better after negation."],
+["Why use cross-validation instead of one train-test split?",["It is faster","Gives a more reliable estimate, less dependent on one random split","It removes the need for test data","It increases degree"],1,"Averaging across folds reduces luck from a single split."],
+["Which is the correct way to avoid data leakage while tuning?",["Tune on test data","Run GridSearchCV on training data only; use test data once at the end","Tune on the full dataset then test","Use test data for choosing degree"],1,"The test set must stay unseen until the final evaluation."],
+["Main disadvantage of GridSearchCV?",["Cannot use cross-validation","Becomes very slow as the grid grows","Only works for linear models","Gives random answers"],1,"Fits = combinations × folds, which grows quickly."],
+["Which sklearn tool samples random combinations instead of trying all?",["RandomizedSearchCV","RandomSplit","GridRandomCV","KFoldSearch"],0,"RandomizedSearchCV with n_iter tries a fixed number of random combos."],
+["Why is StandardScaler often used after PolynomialFeatures with high degree?",["Powers like x⁵ create huge value ranges; scaling keeps them comparable","To increase the degree","To remove the intercept","It is mandatory for every model"],0,"Large differences in scale can cause unstable coefficients."],
+["Train R² = 0.99 but validation R² = 0.60. What does this indicate?",["Underfitting","Perfect model","Overfitting – degree is probably too high","Data is too small to train"],2,"Big gap between train and validation score means overfitting."]
+];
+let done=0,score=0;const box=document.getElementById('qs');
+D.forEach((d,i)=>{const q=document.createElement('div');q.className='q';
+q.innerHTML='<h3>Q'+(i+1)+'. '+d[0]+'</h3>';
+d[1].forEach((t,j)=>{const b=document.createElement('button');b.className='o';b.textContent=String.fromCharCode(65+j)+'. '+t;
+b.onclick=()=>{const bs=q.querySelectorAll('.o');bs.forEach(x=>x.disabled=true);
+bs[d[2]].classList.add('ok');if(j!==d[2])b.classList.add('no');else score++;
+e.style.display='block';done++;
+document.getElementById('p').textContent='Answered: '+done+'/25';
+document.getElementById('sc').textContent='Score: '+score;};q.appendChild(b);});
+const e=document.createElement('div');e.className='e';e.textContent='Answer: '+String.fromCharCode(65+d[2])+'. '+d[3];q.appendChild(e);box.appendChild(q);});
+</script></body></html>
